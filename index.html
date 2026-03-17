@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Amur Studija — Grožio Studija Vilniuje</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold: #ffffff;
+      --gold-light: #e8e8e8;
+      --gold-dim: #888888;
+      --bg: #0a0a0a;
+      --surface-1: #141414;
+      --surface-2: #1c1c1c;
+      --surface-3: #242424;
+      --text: #f2f2f2;
+      --text-muted: #888888;
+      --text-faint: #444444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      height: 88px;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(12, 12, 11, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(240, 235, 224, 0.75);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.25s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 10px 28px;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      border-radius: 1px;
+      font-size: 12px !important;
+      letter-spacing: 0.14em !important;
+      transition: background 0.25s ease, color 0.25s ease !important;
+    }
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--bg) !important;
+    }
+    .nav-cta::after { display: none !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('brand_assets/IMG_4417.JPG');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 12s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(0,0,0,0.74) 0%,
+        rgba(0,0,0,0.48) 50%,
+        rgba(0,0,0,0.80) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-heading {
+      font-size: clamp(28px, 5.2vw, 72px);
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 40px;
+    }
+
+    .hero-rule {
+      width: 48px;
+      height: 1px;
+      background: rgba(255,255,255,0.28);
+      margin-bottom: 40px;
+    }
+
+    .hero-sub {
+      font-size: clamp(11px, 1.3vw, 15px);
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.48);
+      margin-bottom: 80px;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      padding: 17px 56px;
+      border: 1px solid rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.80);
+      background: transparent;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+    .btn-hero:hover {
+      border-color: #ffffff;
+      background: #ffffff;
+      color: #0a0a0a;
+      transform: translateY(-1px);
+    }
+    .btn-hero:active { transform: translateY(0); }
+
+    /* btn-primary — used in contact section */
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 44px;
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 1px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .section-eyebrow span.line {
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.55;
+    }
+    .section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .section-title em { font-style: normal; font-weight: 600; color: var(--gold); }
+    .section-desc {
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── DIVIDER ─── */
+    .gold-divider {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 20px;
+    }
+
+    /* ─── SERVICES ─── */
+    #paslaugos {
+      padding: 120px 56px;
+      position: relative;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--surface-1);
+      padding: 52px 44px;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.3s ease;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover { background: var(--surface-2); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-number {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--gold-dim);
+      margin-bottom: 28px;
+    }
+
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 24px;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    .service-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .service-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      transition: color 0.25s ease, gap 0.25s ease;
+    }
+    .service-card:hover .service-arrow { color: var(--gold); gap: 14px; }
+    .service-arrow { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+
+
+    /* ─── REVIEWS ─── */
+    #atsiliepimai {
+      padding: 120px 56px;
+      background: var(--surface-1);
+      position: relative;
+    }
+    #atsiliepimai::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+
+    .reviews-stats {
+      max-width: 1200px;
+      margin: 0 auto 72px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .reviews-stat {
+      flex: 1;
+      padding: 40px 36px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .reviews-stat:last-child { border-right: none; }
+    .reviews-stat-num {
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .reviews-stat-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .reviews-stat-stars {
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .reviews-grid {
+      max-width: 1200px;
+      margin: 0 auto 56px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .review-card {
+      background: var(--surface-2);
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .review-stars {
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+    .review-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.75;
+      flex: 1;
+    }
+    .review-text::before {
+      content: '\201C';
+      font-size: 40px;
+      line-height: 0;
+      vertical-align: -0.4em;
+      margin-right: 4px;
+      color: rgba(255,255,255,0.2);
+    }
+    .review-meta {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 20px;
+    }
+    .review-author {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+    .review-service {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .reviews-cta {
+      text-align: center;
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 15px 48px;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.7);
+      background: transparent;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease, transform 0.2s ease;
+    }
+    .btn-outline:hover {
+      border-color: #fff;
+      color: #0a0a0a;
+      background: #fff;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      #atsiliepimai { padding: 80px 24px; }
+      .reviews-stats { flex-direction: column; }
+      .reviews-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .reviews-stat:last-child { border-bottom: none; }
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── ABOUT ─── */
+    #apie {
+      padding: 120px 56px;
+      background: var(--surface-1);
+      position: relative;
+      overflow: hidden;
+    }
+    #apie::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+    #apie::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-image {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .about-image-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(
+        to bottom,
+        rgba(12,12,11,0.18) 0%,
+        rgba(12,12,11,0.05) 30%,
+        rgba(12,12,11,0.42) 100%
+      );
+      pointer-events: none;
+    }
+    /* extra colour treatment for moody dark look */
+    .about-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: rgba(0, 0, 0, 0.15);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      z-index: 10;
+      width: 120px;
+      height: 120px;
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .about-badge-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .about-badge-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .about-text .section-header { text-align: left; margin-bottom: 32px; }
+    .about-text .section-eyebrow { justify-content: flex-start; }
+
+    .about-body {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+
+    .about-signature {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .about-signature p {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+    .about-signature strong {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0;
+      text-transform: none;
+      margin-top: 4px;
+    }
+
+    /* ─── GALLERY ─── */
+    #galerija {
+      padding: 120px 56px;
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto auto;
+      gap: 3px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface-2);
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,12,11,0.65) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* gallery layout */
+    .gi-1 { grid-column: 1 / 6; grid-row: 1; height: 380px; }
+    .gi-2 { grid-column: 6 / 9; grid-row: 1; height: 380px; }
+    .gi-3 { grid-column: 9 / 13; grid-row: 1; height: 380px; }
+    .gi-4 { grid-column: 1 / 5; grid-row: 2; height: 320px; }
+    .gi-5 { grid-column: 5 / 10; grid-row: 2; height: 320px; }
+    .gi-6 { grid-column: 10 / 13; grid-row: 2; height: 320px; }
+
+    /* ─── CONTACT ─── */
+    #kontaktai {
+      padding: 120px 56px;
+      background: var(--surface-1);
+      position: relative;
+    }
+    #kontaktai::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .contact-block-label {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .contact-block-value {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .contact-block-value a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .contact-block-value a:hover { color: var(--gold); }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours-table td {
+      padding: 6px 0;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .hours-table td:first-child { color: var(--text-muted); }
+    .hours-table td:last-child { color: var(--text); text-align: right; }
+
+    /* Map placeholder */
+    .contact-map {
+      position: relative;
+      height: 420px;
+      background: var(--surface-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-map-inner {
+      text-align: center;
+    }
+    .contact-map-icon {
+      width: 40px;
+      height: 40px;
+      color: var(--gold);
+      opacity: 0.5;
+      margin: 0 auto 16px;
+    }
+    .contact-map-label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    /* map grid lines aesthetic */
+    .contact-map::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 48px 56px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo img { height: 32px; }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-faint);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-social a {
+      color: var(--text-faint);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .footer-social a:hover { color: var(--gold); }
+
+    /* ─── FADE-IN ANIMATION ─── */
+    /* Elements start visible; JS will set them to invisible before observing */
+    .fade-up {
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.will-animate {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    .fade-up.visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+    .fade-up.delay-5 { transition-delay: 0.5s; }
+
+    /* Stagger for service cards */
+    .service-card:nth-child(1) { transition-delay: 0s; }
+    .service-card:nth-child(2) { transition-delay: 0.08s; }
+    .service-card:nth-child(3) { transition-delay: 0.16s; }
+    .service-card:nth-child(4) { transition-delay: 0.24s; }
+    .service-card:nth-child(5) { transition-delay: 0.32s; }
+    .service-card:nth-child(6) { transition-delay: 0.40s; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+
+      #paslaugos, #apie, #galerija, #atsiliepimai, #kontaktai { padding: 80px 24px; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-image-wrap { order: -1; }
+      .about-image { aspect-ratio: 3/2; }
+      .about-badge { right: 16px; bottom: -16px; }
+
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gi-1, .gi-2, .gi-3, .gi-4, .gi-5, .gi-6 {
+        grid-column: auto;
+        grid-row: auto;
+        height: 240px;
+      }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .contact-map { height: 280px; }
+
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-social { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="navbar">
+    <a class="nav-logo" href="#">
+      <img src="brand_assets/LAMUR_STUDIJA_Logo_Bundle/Web/L-AMUR_STUDIJA_white_Logo_WEBP.webp" alt="L'Amur Studija" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#paslaugos">Paslaugos</a></li>
+      <li><a href="#apie">Apie mus</a></li>
+      <li><a href="#galerija">Galerija</a></li>
+      <li><a href="#kontaktai">Kontaktai</a></li>
+      <li><a href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener" class="nav-cta">Registruotis</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="pradzia">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-heading">Grožio &amp; Priežiūros Studija</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">Jūsų grožio erdvė Vilniuje</p>
+      <a href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener" class="btn-hero">Registruotis</a>
+    </div>
+  </section>
+
+    <!-- ═══ SERVICES ═══ -->
+  <section id="paslaugos">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">
+        <span class="line"></span>
+        Ko mes siūlome
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">Mūsų <em>paslaugos</em></h2>
+      <p class="section-desc">Nuo plaukų priežiūros iki kosmetologinių procedūrų — visas grožio spektras vienoje vietoje.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card fade-up">
+        <div class="service-number">01</div>
+        <div class="service-name">Plaukų priežiūra</div>
+        <div class="service-desc">Kirpimas, dažymas, keratino procedūros, plaukų tiesinimas ir atkuriamosios kaukės pritaikytos kiekvienam plaukų tipui.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">02</div>
+        <div class="service-name">Depiliacija</div>
+        <div class="service-desc">Sklandus ir ilgalaikis kūno bei veido plaukelių šalinimas naudojant aukštos kokybės vašką. Subtili priežiūra jūsų odai.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">03</div>
+        <div class="service-name">Veido procedūros</div>
+        <div class="service-desc">Giluminiai veido valymai, drėkinimas ir atjauninimas. Procedūros parenkamos individualiai pagal odos poreikius.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">04</div>
+        <div class="service-name">Manikiūras &amp; Pedikiūras</div>
+        <div class="service-desc">Klasikinis, aparatinis ir gelinis manikiūras. Pedikiūras su ilgalaikiu lakavimu ir nagų dizaino elementais.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">05</div>
+        <div class="service-name">Antakių stilizacija</div>
+        <div class="service-desc">Antakių modeliavimas, dažymas ir laminacija. Korigiuojame formą pagal jūsų veido bruožus ir pageidavimus.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">06</div>
+        <div class="service-name">Kosmetologinės paslaugos</div>
+        <div class="service-desc">Profesionalios kosmetologinės procedūros: mezoterapija, mikroadatėlių terapija ir odos tono lyginimas.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">07</div>
+        <div class="service-name">Masažai</div>
+        <div class="service-desc">Atpalaiduojantys ir gydomieji masažai — nuo klasikinio ir sportinio iki aromaterapi­nio. Pagalba raumenų įtampai ir stresui.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-number">08</div>
+        <div class="service-name">Makiažai</div>
+        <div class="service-desc">Dienos, vakarinis ir šventinis makiažas. Profesionalūs meistrai pabrėš jūsų natūralų grožį kiekvienai progai ir stiliui.</div>
+        <a class="service-arrow" href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener">Sužinoti daugiau <span>→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="apie">
+    <div class="about-inner">
+      <div class="about-image-wrap fade-up">
+        <img
+          class="about-image"
+          src="brand_assets/IMG_4426.PNG"
+          alt="L'Amur Studija interjeras"
+        />
+        <div class="about-image-overlay"></div>
+        <div class="about-badge">
+          <div class="about-badge-num">5+</div>
+          <div class="about-badge-label">Metų patirtis</div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <span class="line"></span>
+            Mūsų istorija
+          </div>
+          <h2 class="section-title">Apie <em>L'Amur</em></h2>
+        </div>
+
+        <p class="about-body">
+          L'Amur Studija — tai grožio prieglobstis Vilniaus širdyje. Mes tikime, kad kiekvienas žmogus nusipelno jaustis išlepintas, išklausytas ir geriausiai atrodantis.
+        </p>
+        <p class="about-body">
+          Mūsų komanda — tai sertifikuoti specialistai su daugiau nei penkerių metų patirtimi aukščiausio lygio grožio industrijoje. Naudojame tik pačias geriausias priemones ir nuolat tobulinimės sekdami pasaulines grožio tendencijas.
+        </p>
+        <p class="about-body">
+          Studijoje ras vietos visiems — nuo pirmo vizito iki ilgamečio ryšio su mūsų specialistais.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALLERY ═══ -->
+  <section id="galerija">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">
+        <span class="line"></span>
+        Mūsų erdvė
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">Grožio <em>galerija</em></h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item gi-1 fade-up">
+        <img src="brand_assets/IMG_4417.JPG" alt="Salono laukiamasis" />
+      </div>
+      <div class="gallery-item gi-2 fade-up delay-1">
+        <img src="brand_assets/IMG_4428.PNG" alt="Procedūrų kabinetas" />
+      </div>
+      <div class="gallery-item gi-3 fade-up delay-2">
+        <img src="brand_assets/IMG_4415.JPG" alt="Vaškavimai" />
+      </div>
+      <div class="gallery-item gi-4 fade-up delay-1">
+        <img src="brand_assets/IMG_4418.jpg" alt="Plaukų plovimo zona" />
+      </div>
+      <div class="gallery-item gi-5 fade-up delay-2">
+        <img src="brand_assets/IMG_4426.PNG" alt="Pagrindinis salono vaizdas" />
+      </div>
+      <div class="gallery-item gi-6 fade-up delay-3">
+        <img src="brand_assets/IMG_4417.JPG" alt="Salono detalė" />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ REVIEWS ═══ -->
+  <section id="atsiliepimai">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">
+        <span class="line"></span>
+        Klientų atsiliepimai
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">Ką sako <em>mūsų klientai</em></h2>
+    </div>
+
+    <div class="reviews-stats fade-up">
+      <div class="reviews-stat">
+        <div class="reviews-stat-num">5.0</div>
+        <div class="reviews-stat-label">Bendras įvertinimas</div>
+      </div>
+      <div class="reviews-stat">
+        <div class="reviews-stat-num">217</div>
+        <div class="reviews-stat-label">Atsiliepimų</div>
+      </div>
+      <div class="reviews-stat">
+        <div class="reviews-stat-stars">★★★★★</div>
+        <div class="reviews-stat-label">Atmosfera</div>
+      </div>
+      <div class="reviews-stat">
+        <div class="reviews-stat-stars">★★★★★</div>
+        <div class="reviews-stat-label">Personalas</div>
+      </div>
+      <div class="reviews-stat">
+        <div class="reviews-stat-stars">★★★★★</div>
+        <div class="reviews-stat-label">Švara</div>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Teko kirptis pas daug kirpėjų, tačiau drąsiai galiu pasakyti, kad Rita pralenkia juos visus...</p>
+        <div class="review-meta">
+          <div class="review-author">Martynas</div>
+          <div class="review-service">Vyriškas kirpimas</div>
+        </div>
+      </div>
+      <div class="review-card fade-up delay-1">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Puikiai, greitai, kruopščiai. Rekomenduoju!</p>
+        <div class="review-meta">
+          <div class="review-author">Miglė</div>
+          <div class="review-service">Antakių korekcija siūlu</div>
+        </div>
+      </div>
+      <div class="review-card fade-up delay-2">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Ačiū, Elvyra.</p>
+        <div class="review-meta">
+          <div class="review-author">Erika</div>
+          <div class="review-service">Giliųjų audinių masažas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-cta fade-up">
+      <a href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener" class="btn-outline">Skaityti visus atsiliepimus</a>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="kontaktai">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">
+        <span class="line"></span>
+        Susisiekite
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">Kontaktai &amp; <em>darbo laikas</em></h2>
+    </div>
+
+    <div class="contact-inner">
+      <div class="contact-info fade-up">
+
+        <div>
+          <div class="contact-block-label">Adresas</div>
+          <div class="contact-block-value">
+            A. Vienuolio g. 14-1<br />
+            Vilnius, Lietuva
+          </div>
+        </div>
+
+        <div>
+          <div class="contact-block-label">Telefonas</div>
+          <div class="contact-block-value">
+            <a href="tel:+37068659995">+370 686 59995</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="contact-block-label">El. paštas</div>
+          <div class="contact-block-value">
+            <a href="mailto:info@lamurstudija.lt">info@lamurstudija.lt</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="contact-block-label">Darbo laikas</div>
+          <table class="hours-table">
+            <tr><td>Pirmadienis – Sekmadienis</td><td>10:00 – 21:00</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <a href="https://www.treatwell.lt/salonas/l-amur-studija/" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block">Registruotis internetu</a>
+        </div>
+
+      </div>
+
+      <div class="contact-map fade-up delay-2">
+        <!-- decorative grid background via ::before -->
+        <div class="contact-map-inner">
+          <svg class="contact-map-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <div class="contact-map-label">A. Vienuolio g. 14-1, Vilnius</div>
+          <div style="margin-top:20px;padding:16px 24px;border:1px solid rgba(255,255,255,0.1);display:inline-block;text-align:left;">
+            <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Kaip mus rasti</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">Esame prie pat Operos ir Baleto teatro.<br/>A. Vienuolio g. 14-1, Vilnius.<br/>Viešasis transportas: autobusai 2, 3, 5.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-logo">
+      <img src="brand_assets/LAMUR_STUDIJA_Logo_Bundle/Web/L-AMUR_STUDIJA_white_Logo_WEBP.webp" alt="L'Amur Studija" />
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 L'Amur Studija. Visos teisės saugomos.
+    </div>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/beauty.lamur_studio/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/p/Lamur-Beauty-Studio-61579913190083/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    // Hero BG ken burns
+    const heroBg = document.getElementById('heroBg');
+    setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+    // Intersection Observer for fade-up
+    // Use requestAnimationFrame to mark elements as will-animate after first paint
+    requestAnimationFrame(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px 60px 0px' });
+
+      document.querySelectorAll('.fade-up').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+</html>
