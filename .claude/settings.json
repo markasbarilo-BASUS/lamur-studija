@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node screenshot.mjs http://localhost:3000 pass6)",
+      "Bash(node screenshot.mjs http://localhost:3000 bw)",
+      "Bash(node screenshot.mjs http://localhost:3000 v2)",
+      "Bash(python3 -c \"import sys; data=sys.stdin.read\\(\\); print\\(repr\\(data[:500]\\)\\)\")",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-v2)",
+      "Bash(node screenshot.mjs http://localhost:3000 v3)",
+      "Bash(node /tmp/snap.mjs)",
+      "Read(//private/tmp/**)",
+      "Bash(git --version)",
+      "Bash(brew --version)",
+      "Bash(curl -sL https://github.com/cli/cli/releases/latest)",
+      "Bash(curl -sLO \"https://github.com/cli/cli/releases/download/v2.88.1/gh_2.88.1_macOS_arm64.tar.gz\")",
+      "Bash(tar xzf:*)",
+      "Bash(curl -s \"https://api.github.com/repos/cli/cli/releases/latest\")",
+      "Bash(curl -sLO \"https://github.com/cli/cli/releases/download/v2.88.1/gh_2.88.1_macOS_arm64.zip\")",
+      "Bash(unzip -q gh_2.88.1_macOS_arm64.zip)",
+      "Bash(GH=/tmp/gh_2.88.1_macOS_arm64/bin/gh)",
+      "Bash($GH --version)",
+      "Bash($GH auth:*)",
+      "Bash(/tmp/gh_2.88.1_macOS_arm64/bin/gh auth:*)",
+      "Bash(__NEW_LINE_ad17b6fd91b64130__ $GH repo create lamur-studija --public --description \"L''Amur Studija — beauty salon homepage\" --source=. --remote=origin --push)",
+      "Bash(node /tmp/snap_mobile.mjs)"
+    ]
+  }
+}

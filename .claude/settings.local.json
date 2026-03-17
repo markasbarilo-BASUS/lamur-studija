@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node screenshot.mjs http://localhost:3000 hero)",
+      "Bash(npm list:*)",
+      "Read(//usr/local/lib/node_modules/**)",
+      "Read(//Users/markas/.npm/**)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(node screenshot.mjs http://localhost:3000 pass1)",
+      "Bash(node screenshot.mjs http://localhost:3000 pass2)",
+      "Bash(node screenshot.mjs http://localhost:3000 pass3)"
+    ]
+  }
+}

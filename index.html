@@ -355,7 +355,7 @@
       transition: color 0.25s ease, gap 0.25s ease;
     }
     .service-card:hover .service-arrow { color: var(--gold); gap: 14px; }
-    .service-arrow { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .service-arrow { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
 
 
     /* ─── REVIEWS ─── */
@@ -483,14 +483,6 @@
       transform: translateY(-1px);
     }
     .btn-outline:active { transform: translateY(0); }
-
-    @media (max-width: 900px) {
-      #atsiliepimai { padding: 80px 24px; }
-      .reviews-stats { flex-direction: column; }
-      .reviews-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-      .reviews-stat:last-child { border-bottom: none; }
-      .reviews-grid { grid-template-columns: 1fr; }
-    }
 
     /* ─── ABOUT ─── */
     #apie {
@@ -846,30 +838,109 @@
 
     /* ─── MOBILE ─── */
     @media (max-width: 900px) {
-      nav { padding: 0 24px; }
+
+      /* NAV */
+      nav { padding: 0 20px; height: 72px; }
       .nav-links { display: none; }
+      .nav-logo img { height: 36px; }
 
-      #paslaugos, #apie, #galerija, #atsiliepimai, #kontaktai { padding: 80px 24px; }
+      /* HERO */
+      .hero-heading { letter-spacing: 0.14em; margin-bottom: 28px; }
+      .hero-rule { margin-bottom: 28px; }
+      .hero-sub { margin-bottom: 52px; letter-spacing: 0.16em; }
 
-      .services-grid { grid-template-columns: 1fr 1fr; }
+      /* SECTION SPACING */
+      #paslaugos, #apie, #galerija, #atsiliepimai, #kontaktai { padding: 72px 20px; }
+      .section-header { margin-bottom: 44px; }
 
-      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      /* SERVICES — single column, spacious */
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+      .service-card {
+        padding: 32px 28px;
+      }
+      .service-number {
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        margin-bottom: 16px;
+        opacity: 0.5;
+      }
+      .service-name {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+      .service-desc {
+        font-size: 15px;
+        line-height: 1.85;
+      }
+      .service-arrow {
+        margin-top: 24px;
+        font-size: 11px;
+      }
+
+      /* ABOUT */
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
       .about-image-wrap { order: -1; }
-      .about-image { aspect-ratio: 3/2; }
-      .about-badge { right: 16px; bottom: -16px; }
+      .about-image { aspect-ratio: 4/3; }
+      .about-badge { right: 12px; bottom: -16px; width: 100px; height: 100px; }
+      .about-badge-num { font-size: 22px; }
+      .about-text .section-header { margin-bottom: 24px; }
 
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      /* GALLERY */
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+      }
       .gi-1, .gi-2, .gi-3, .gi-4, .gi-5, .gi-6 {
         grid-column: auto;
         grid-row: auto;
-        height: 240px;
+        height: 180px;
       }
 
-      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-      .contact-map { height: 280px; }
+      /* REVIEWS */
+      .reviews-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .reviews-stat {
+        flex: 1 1 calc(33.333% - 1px);
+        min-width: 0;
+        padding: 24px 16px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .reviews-stat:nth-child(3) { border-right: none; }
+      .reviews-stat:nth-child(4),
+      .reviews-stat:nth-child(5) { border-bottom: none; }
+      .reviews-stat-num { font-size: 26px; }
+      .reviews-stat-label { font-size: 9px; letter-spacing: 0.12em; }
+      .reviews-grid { grid-template-columns: 1fr; gap: 2px; }
+      .review-card { padding: 32px 28px; }
+      .review-text { font-size: 15px; line-height: 1.8; }
 
-      footer { flex-direction: column; gap: 20px; text-align: center; }
+      /* CONTACT */
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-map { height: 260px; }
+      .contact-info { gap: 32px; }
+      .contact-block-value { font-size: 15px; }
+      .hours-table td { font-size: 13px; }
+
+      /* FOOTER */
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 20px; }
       .footer-social { justify-content: center; }
+    }
+
+    /* Extra-small: below 430px tighten further */
+    @media (max-width: 430px) {
+      .reviews-stat { flex: 1 1 50%; }
+      .reviews-stat:nth-child(2) { border-right: 1px solid rgba(255,255,255,0.08); }
+      .reviews-stat:nth-child(3) { border-bottom: none; }
+      .reviews-stat:nth-child(4) { border-bottom: none; }
+      .reviews-stat:nth-child(5) { border-bottom: none; }
+      .gi-1, .gi-2, .gi-3, .gi-4, .gi-5, .gi-6 { height: 160px; }
     }
   </style>
 </head>
