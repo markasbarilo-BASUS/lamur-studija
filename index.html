@@ -428,7 +428,7 @@
       letter-spacing: 0.04em;
     }
     .review-text {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 300;
       color: var(--text);
       line-height: 1.75;
@@ -787,7 +787,7 @@
       justify-content: space-between;
     }
 
-    .footer-logo img { height: 32px; }
+    .footer-logo img { height: 56px; filter: none; opacity: 1; }
 
     .footer-copy {
       font-size: 12px;
@@ -800,14 +800,15 @@
       gap: 20px;
     }
     .footer-social a {
-      color: var(--text-faint);
+      color: #ffffff;
       text-decoration: none;
       font-size: 12px;
+      font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: color 0.25s;
+      transition: opacity 0.25s;
     }
-    .footer-social a:hover { color: var(--gold); }
+    .footer-social a:hover { opacity: 0.7; }
 
     /* ─── FADE-IN ANIMATION ─── */
     /* Elements start visible; JS will set them to invisible before observing */
@@ -842,7 +843,7 @@
       /* NAV */
       nav { padding: 0 20px; height: 72px; }
       .nav-links { display: none; }
-      .nav-logo img { height: 36px; }
+      .nav-logo img { height: 56px; filter: none; opacity: 1; }
 
       /* HERO */
       .hero-heading { letter-spacing: 0.14em; margin-bottom: 28px; }
@@ -919,7 +920,7 @@
       .reviews-stat-label { font-size: 9px; letter-spacing: 0.12em; }
       .reviews-grid { grid-template-columns: 1fr; gap: 2px; }
       .review-card { padding: 32px 28px; }
-      .review-text { font-size: 15px; line-height: 1.8; }
+      .review-text { font-size: 16px; line-height: 1.8; }
 
       /* CONTACT */
       .contact-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -1154,26 +1155,26 @@
     <div class="reviews-grid">
       <div class="review-card fade-up">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">Teko kirptis pas daug kirpėjų, tačiau drąsiai galiu pasakyti, kad Rita pralenkia juos visus...</p>
+        <p class="review-text">Teko kirptis pas daug kirpėjų, tačiau drąsiai galiu pasakyti, kad Rita pralenkia juos visus. Vis dar negaliu atsistebėti jos kruopštumu ir profesionalumu. Tikrai nežinau kito kirpėjo, kuris taip skrupulingai sutvarkytų kiekvieną atsikišusį plaukelį, kol rezultatas tampa tobulas. Tik po Ritos kirpimo išeini atjaunėjęs penkeriais metais :)</p>
         <div class="review-meta">
           <div class="review-author">Martynas</div>
-          <div class="review-service">Vyriškas kirpimas</div>
+          <div class="review-service">Paslaugą atliko Rita · Vyriškas kirpimas</div>
         </div>
       </div>
       <div class="review-card fade-up delay-1">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">Puikiai, greitai, kruopščiai. Rekomenduoju!</p>
+        <p class="review-text">Nuostabus grožio salonas! Plaukų kirpimas ir dažymas atlikti nepriekaištingai – rezultatas tiesiog tobulas. Vyriška depiliacija atlikta labai profesionaliai, greitai ir kruopščiai. Puikus aptarnavimas, maloni atmosfera ir tikri savo srities specialistai. Tikrai dar sugrįšiu ir drąsiai rekomenduoju!</p>
         <div class="review-meta">
-          <div class="review-author">Miglė</div>
-          <div class="review-service">Antakių korekcija siūlu</div>
+          <div class="review-author">Tadas</div>
+          <div class="review-service">Vyrų depiliacija vašku</div>
         </div>
       </div>
       <div class="review-card fade-up delay-2">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">Ačiū, Elvyra.</p>
+        <p class="review-text">Pasirinkau šį saloną atsitiktinai. Dėl patogios vietos ir dėl to, kad buvo laisva vieta man tinkamu metu. Tačiau apsilankius labai maloniai nustebino meistrės profesionalumas. Tikrai sugrįšiu dar kartą.</p>
         <div class="review-meta">
-          <div class="review-author">Erika</div>
-          <div class="review-service">Giliųjų audinių masažas</div>
+          <div class="review-author">Martynas</div>
+          <div class="review-service">Paslaugą atliko Anna · Manikūras</div>
         </div>
       </div>
     </div>
